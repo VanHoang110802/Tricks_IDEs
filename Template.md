@@ -51,9 +51,7 @@ template<class T> inline T DivMod(T a, T b, T c) { T inverse = modulo_inverse(b,
 
 void XuLy()
 {
-	ll a, b; cin >> a >> b;
-	ll ans = pow_mod(a, b, 1000000007);
-	cout << ans << '\n';
+	
 }
 
 int main()
