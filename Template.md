@@ -35,15 +35,15 @@ template<class T> inline T MultMod(T a, T b, T c) { return ((a % c) * (b % c)) %
 
 ll pow_mod(ll a, ll b, ll M)
 {
-    ll res = 1LL;
-    while(b)
-    {
-        if(b & 1LL) { res = MultMod(res, a, M); }
-
-        a = MultMod(a, a, M);
-        b /= 2LL;
-    }
-    return res;
+	ll res = 1LL;
+	while(b)
+	{
+		if(b & 1LL) { res = MultMod(res, a, M); }
+		
+		a = MultMod(a, a, M);
+		b /= 2LL;
+	}
+	return res;
 }
 
 template<class T> inline T modulo_inverse(T a, T M) { return pow_mod(a, M - 2, M); } // nghich dao modulo
