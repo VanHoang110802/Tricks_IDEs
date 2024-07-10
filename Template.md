@@ -29,8 +29,6 @@ typedef double db;
 #define cntBit(n) __builtin_popcount(n)
 #define to_upper(str) transform(all(str),str.begin(),::toupper)
 #define to_lower(str) transform(all(str),str.begin(),::tolower)
-#define flo(a, b) (a/b)
-#define cel(a, b) (a+b-1)
 
 template<class T>
 inline T AddMod(T a, T b, T c)
@@ -94,17 +92,20 @@ inline T lcm(T a, T b)
 	return a / gcd(a, b) * b;
 }
 
-ll Sqrt(ll x) // sqrt use binary search
+template<class T>
+inline T Sqrt(T k) // the square root use binary search
 {
-	ll ans = 0;
-	for(ll k = 1LL << 30; k != 0; k /= 2)
-	{
-		if((ans + k) * (ans + k) <= x)
-		{
-			ans += k;
-		}
-	}
-	return ans;
+	T r = sqrt(k) + 1;
+	while(r * r > k) { r--; }
+	return r;
+}
+
+template<class T>
+inline T Cbrt(T k) // the cube root use binary search
+{
+	T r = cbrt(k) + 1;
+	while(r * r * r > k) { r--; }
+	return r;
 }
 
 void XuLy()
