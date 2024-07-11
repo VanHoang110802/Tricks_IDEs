@@ -142,6 +142,10 @@ void XuLy()
 
 int main()
 {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+#endif
+
     FAST_IO;
     XuLy();
     return 0;
