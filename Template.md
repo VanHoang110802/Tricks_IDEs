@@ -142,14 +142,14 @@ T DivMod(T a, T b, T c)
 void XuLy()
 {
     clock_t time_begin = clock();
-	
+// code...
     clock_t time_end = clock();
     timer[1] = (db)(db)(time_end - time_begin) / 1000.0;
 }
 
 int main()
 {
-    //clock_t time_begin = clock();
+    clock_t time_begin = clock();
 
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
