@@ -36,6 +36,7 @@ typedef double db;
 #define to_lower(str) transform(all(str),str.begin(),::tolower)
 
 const ll MOD = 1000000007;
+int timer[100];
 
 template<class T>
 inline T gcd(T a, T b)
@@ -76,25 +77,25 @@ inline T Cbrt(T k) // can bac ba su dung binary search
 }
 
 template<class T>
-inline T AddMod(T a, T b, T c = MOD)
+inline T AddMod(T a, T b, T c)
 {
     return ((a % c) + (b % c)) % c;
 }
 
 template<class T>
-inline T SubMod(T a, T b, T c = MOD)
+inline T SubMod(T a, T b, T c)
 {
     return ((a % c) - (b % c)) % c;
 }
 
 template<class T>
-inline T MultMod(T a, T b, T c = MOD)
+inline T MultMod(T a, T b, T c)
 {
     return ((a % c) * (b % c)) % c;
 }
 
 template<class T>
-T multiply_modulo(T a, T b, T c = MOD) // a * b % M - co the doi dau + thanh -, *
+T multiply_modulo(T a, T b, T c) // a * b % M
 {
     if (b == 0)
         return 0;
@@ -108,7 +109,7 @@ T multiply_modulo(T a, T b, T c = MOD) // a * b % M - co the doi dau + thanh -, 
 }
 
 template<class T>
-T pow_mod(T a, T b, T c = MOD) // a^b % M
+T pow_mod(T a, T b, T c) // a^b % M
 {
     if (b == 0)
         return 1LL;
@@ -123,13 +124,13 @@ T pow_mod(T a, T b, T c = MOD) // a^b % M
 }
 
 template<class T>
-T modulo_inverse(T a, T M = MOD) // nghich dao modulo
+T modulo_inverse(T a, T M) // nghich dao modulo
 {
     return pow_mod(a, M - 2, M);
 }
 
 template<class T>
-T DivMod(T a, T b, T c = MOD)
+T DivMod(T a, T b, T c)
 {
     T inverse = modulo_inverse(b, c);
     return (a % c * inverse) % c;
@@ -137,18 +138,18 @@ T DivMod(T a, T b, T c = MOD)
 
 void XuLy()
 {
+    clock_t begin = clock();
 
+    clock_t end = clock();
+    timer[1] = (int)end;
 }
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-#endif
 
     FAST_IO;
     XuLy();
+
     return 0;
 }
-
 ```
