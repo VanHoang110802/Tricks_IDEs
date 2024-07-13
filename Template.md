@@ -1,6 +1,4 @@
 ```cpp
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2")
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -36,7 +34,7 @@ typedef double db;
 #define to_lower(str) transform(all(str),str.begin(),::tolower)
 
 const ll MOD = 1000000007;
-int timer[100];
+db timer[100];
 
 template<class T>
 inline T gcd(T a, T b)
@@ -111,6 +109,8 @@ T multiply_modulo(T a, T b, T c) // a * b % M
 template<class T>
 T pow_mod(T a, T b, T c) // a^b % M
 {
+    //clock_t time_begin = clock();
+
     if (b == 0)
         return 1LL;
 
@@ -121,6 +121,9 @@ T pow_mod(T a, T b, T c) // a^b % M
         return multiply_modulo(half, a, c);
     else
         return half;
+
+    //clock_t time_end = clock();
+    //timer[0] = (db)(time_end - time_begin) / 1000.0;
 }
 
 template<class T>
@@ -138,19 +141,29 @@ T DivMod(T a, T b, T c)
 
 void XuLy()
 {
-    clock_t begin = clock();
-    // code...
-    clock_t end = clock();
-    timer[1] = (int)end;
+    //clock_t time_begin = clock();
+	
+    //clock_t time_end = clock();
+    //timer[1] = (db)(db)(time_end - time_begin) / 1000.0;
 }
 
 int main()
 {
+    //clock_t time_begin = clock();
+
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
+#else
 #endif
+
     FAST_IO;
     XuLy();
+
+    //clock_t time_end = clock();
+    //timer[2] = (db)(db)(time_end - time_begin) / 1000.0;
+
+    //db time_run = timer[0] + timer[1] + timer[2];
+    //cout << prec(3) << "\nTime: " << time_run << " ms.";
 
     return 0;
 }
