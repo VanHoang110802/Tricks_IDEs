@@ -141,10 +141,10 @@ T DivMod(T a, T b, T c)
 
 void XuLy()
 {
-    //clock_t time_begin = clock();
+    clock_t time_begin = clock();
 	
-    //clock_t time_end = clock();
-    //timer[1] = (db)(db)(time_end - time_begin) / 1000.0;
+    clock_t time_end = clock();
+    timer[1] = (db)(db)(time_end - time_begin) / 1000.0;
 }
 
 int main()
@@ -159,12 +159,14 @@ int main()
     FAST_IO;
     XuLy();
 
-    //clock_t time_end = clock();
-    //timer[2] = (db)(db)(time_end - time_begin) / 1000.0;
+    clock_t time_end = clock();
+    timer[2] = (db)(db)(time_end - time_begin) / 1000.0;
 
-    //db time_run = timer[0] + timer[1] + timer[2];
-    //cout << prec(3) << "\nTime: " << time_run << " ms.";
-
+    db time_run = timer[0] + timer[1] + timer[2];
+    cout << prec(3) << "\nTime: " << time_run << " ms.";
     return 0;
 }
 ```
+
+---
+![image](https://github.com/user-attachments/assets/5140b2da-9f44-42b2-a611-800d82cc6313)
