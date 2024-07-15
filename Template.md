@@ -3,8 +3,8 @@
 using namespace std;
 
 typedef unsigned long long ull;
-typedef long double ld;
 typedef long long ll;
+typedef long double ld;
 typedef double db;
 
 #define FAST_IO ios_base::sync_with_stdio(0),cin.tie(0)
@@ -28,20 +28,27 @@ typedef double db;
 #define mem(a,x) memset(a,x,sizeof(a))
 #define memf(a) memset(a,0x3f,sizeof(a))
 #define pq priority_queue
-#define GetMask ((x >> i) & 1)
-#define cntBit(n) __builtin_popcount(n)
 #define to_upper(str) transform(all(str),str.begin(),::toupper)
 #define to_lower(str) transform(all(str),str.begin(),::tolower)
+// a=target variable, b=bit number to act upon 0-n
+#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
+#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
+#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
+// '!!' to make sure this returns 0 or 1
+#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))
+#define BITMASK_SET(x, mask) ((x) |= (mask))
+#define BITMASK_CLEAR(x, mask) ((x) &= (~(mask)))
+#define BITMASK_FLIP(x, mask) ((x) ^= (mask))
+#define BITMASK_CHECK_ALL(x, mask) (!(~(x) & (mask)))
+#define BITMASK_CHECK_ANY(x, mask) ((x) & (mask))
 
-const ll MOD = 1000000007;
-db timer[100];
 
 template<class T>
 inline T gcd(T a, T b)
 {
-    while(b != 0)
+    while(b)
     {
-        swap(b, a %= b);
+        swap(b, a % b);
     }
     return a;
 }
@@ -53,52 +60,46 @@ inline T lcm(T a, T b)
 }
 
 template<class T>
-inline T Sqrt(T k) // can bac hai su dung binary search
+inline T Sqrt(T k)
 {
     T r = sqrt(k) + 1;
     while(r * r > k)
     {
-        r--;
+        --r;
     }
     return r;
 }
 
 template<class T>
-inline T Cbrt(T k) // can bac ba su dung binary search
+inline Cbrt(T k)
 {
     T r = cbrt(k) + 1;
-    while(r * r * r > k)
+    while(r * r * r  > k)
     {
-        r--;
+        --r;
     }
     return r;
 }
 
 template<class T>
-inline T AddMod(T a, T b, T c)
+inline T AddMod(T a, T b, T c = 1000000007)
 {
     return ((a % c) + (b % c)) % c;
 }
 
 template<class T>
-inline T SubMod(T a, T b, T c)
+inline T SubMod(T a, T b, T c = 1000000007)
 {
     return ((a % c) - (b % c)) % c;
 }
 
 template<class T>
-inline T MultMod(T a, T b, T c)
-{
-    return ((a % c) * (b % c)) % c;
-}
-
-template<class T>
-T multiply_modulo(T a, T b, T c) // a * b % M
+inline T MulMod(T a, T b, T c = 1000000007) // a * b % M
 {
     if (b == 0)
         return 0;
 
-    T t = multiply_modulo(a, b / 2, c) % c;
+    T t = MulMod(a, b / 2, c) % c;
 
     if (b & 1)
         return (AddMod(t, t, c) + a % c) % c;
@@ -107,66 +108,145 @@ T multiply_modulo(T a, T b, T c) // a * b % M
 }
 
 template<class T>
-T pow_mod(T a, T b, T c) // a^b % M
+inline T PowMod(T a, T b, T c = 1000000007)
 {
-    //clock_t time_begin = clock();
-
-    if (b == 0)
+    if(b == 0)
         return 1LL;
 
-    T half = pow_mod(a, b / 2, c) % c;
-    half = multiply_modulo(half, half, c);
+    T half = PowMod(a, b / 2, c) % c;
+    half = MulMod(half, half, c);
 
-    if (b & 1)
-        return multiply_modulo(half, a, c);
-    else
-        return half;
-
-    //clock_t time_end = clock();
-    //timer[0] = (db)(time_end - time_begin) / 1000.0;
+    if(b & 1) return MulMod(half, a, c);
+    else return half;
 }
 
 template<class T>
-T modulo_inverse(T a, T M) // nghich dao modulo
+inline T InverseMod(T a, T c = 1000000007)
 {
-    return pow_mod(a, M - 2, M);
+    return PowMod(a, c - 2, c);
 }
 
 template<class T>
-T DivMod(T a, T b, T c)
+inline T DivMod(T a, T b, T c = 1000000007)
 {
-    T inverse = modulo_inverse(b, c);
+    T inverse = InverseMod(b, c);
     return (a % c * inverse) % c;
+}
+
+template<typename T>
+inline T extended_euclid(T a, T b, T &x, T &y)
+{
+    T xx = 0, yy = 1;
+    y = 0;
+    x = 1;
+    while(b)
+    {
+        T q = a / b, t = b;
+        b = a % b;
+        a = t;
+        \
+        t = xx;
+        xx = x - q * xx;
+        x = t;
+        t = yy;
+        yy = y - q * yy;
+        y = t;
+    }
+    return a;
+}
+
+template<typename T>
+inline T PointDistanceHorVer(T x1, T y1, T x2, T y2)
+{
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+
+template<typename T>
+inline T PointDistanceDiagonally(T x1, T y1, T x2, T y2)
+{
+    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+}
+
+template<typename T>
+inline T PointDistanceMinimum(T x1, T y1, T x2, T y2)
+{
+    T tmp1 = abs(x1 - x2);
+    T tmp2 = abs(y1 - y2);
+    T tmp3 = abs(tmp1 - tmp2);
+    T tmp4 = min(tmp1, tmp2);
+    return tmp3 + tmp4;
+}
+
+template<typename T>
+inline T PointDistance3D(T x1, T y1, T z1, T x2, T y2, T z2)
+{
+    return sqrt(square(x2 - x1) + square(y2 - y1) + square(z2 - z1));
+}
+
+template<typename T>
+inline T Cube(T a)
+{
+    return a * a * a;
+}
+
+template<typename T>
+inline T RectengularPrism(T a, T b, T c)
+{
+    return a * b * c;
+}
+
+template<typename T>
+inline T Pyramid(T base, T height)
+{
+    return (1/3) * base * height;
+}
+
+template<typename T>
+inline T Ellipsoid(T r1, T r2, T r3)
+{
+    return (4/3) * 3.14159265359 * r1 * r2 * r3;
+}
+
+template<typename T>
+inline T IrregualarPrism(T base, T height)
+{
+    return base * height;
+}
+
+template<typename T>
+inline T Sphere(T radius)
+{
+    return (4/3) * 3.14159265359 * radius * radius * radius;
+}
+
+template<typename T>
+inline T CylinderB(T base, T height)
+{
+    return base * height;   // base and height
+}
+
+template<typename T>
+inline T CylinderR(T radius, T height)
+{
+    return 3.14159265359 * radius * radius * height;   // radius and height
+}
+
+template<typename T>
+inline T Cone(T radius,T base, T height)
+{
+    return (1/3) * 3.14159265359 * radius * radius * height;
 }
 
 void XuLy()
 {
-    clock_t time_begin = clock();
-// code...
-    clock_t time_end = clock();
-    timer[1] = (db)(db)(time_end - time_begin) / 1000.0;
+
+
 }
 
 int main()
 {
-    clock_t time_begin = clock();
-
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-#else
-#endif
-
     FAST_IO;
     XuLy();
-
-    clock_t time_end = clock();
-    timer[2] = (db)(db)(time_end - time_begin) / 1000.0;
-
-    db time_run = timer[0] + timer[1] + timer[2];
-    cout << prec(3) << "\nTime: " << time_run << " ms.";
     return 0;
 }
 ```
-
----
-![image](https://github.com/user-attachments/assets/5140b2da-9f44-42b2-a611-800d82cc6313)
