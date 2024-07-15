@@ -11,7 +11,11 @@ Lệnh để setup compiler:
 npp_save
 cd "$(CURRENT_DIRECTORY)" 
 g++ "$(FILE_NAME)" -o $(NAME_PART) -static-libgcc -static-libstdc++
+if $(EXITCODE) != 0
+exit
+endif
 $(NAME_PART).exe
+exit
 ```
 
 > Chương trình sort tăng dần:
