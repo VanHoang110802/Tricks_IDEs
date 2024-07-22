@@ -43,23 +43,26 @@ typedef double db;
 #define BITMASK_CHECK_ANY(x, mask) ((x) & (mask))
 
 
-template<class T>
+template<typename T>
 inline T gcd(T a, T b)
 {
+    T tmp;
     while(b)
     {
-        swap(b, a % b);
+        tmp = a % b;
+        a = b;
+        b = tmp;
     }
     return a;
 }
 
-template<class T>
+template<typename T>
 inline T lcm(T a, T b)
 {
     return a / gcd(a, b) * b;
 }
 
-template<class T>
+template<typename T>
 inline T Sqrt(T k)
 {
     T r = sqrt(k) + 1;
@@ -70,7 +73,7 @@ inline T Sqrt(T k)
     return r;
 }
 
-template<class T>
+template<typename T>
 inline Cbrt(T k)
 {
     T r = cbrt(k) + 1;
@@ -81,19 +84,19 @@ inline Cbrt(T k)
     return r;
 }
 
-template<class T>
+template<typename T>
 inline T AddMod(T a, T b, T c = 1000000007)
 {
     return ((a % c) + (b % c)) % c;
 }
 
-template<class T>
+template<typename T>
 inline T SubMod(T a, T b, T c = 1000000007)
 {
     return ((a % c) - (b % c)) % c;
 }
 
-template<class T>
+template<typename T>
 inline T MulMod(T a, T b, T c = 1000000007) // a * b % M
 {
     if (b == 0)
@@ -107,7 +110,7 @@ inline T MulMod(T a, T b, T c = 1000000007) // a * b % M
         return AddMod(t, t, c);
 }
 
-template<class T>
+template<typename T>
 inline T PowMod(T a, T b, T c = 1000000007)
 {
     if(b == 0)
@@ -120,13 +123,13 @@ inline T PowMod(T a, T b, T c = 1000000007)
     else return half;
 }
 
-template<class T>
+template<typename T>
 inline T InverseMod(T a, T c = 1000000007)
 {
     return PowMod(a, c - 2, c);
 }
 
-template<class T>
+template<typename T>
 inline T DivMod(T a, T b, T c = 1000000007)
 {
     T inverse = InverseMod(b, c);
@@ -239,12 +242,16 @@ inline T Cone(T radius,T base, T height)
 
 void XuLy()
 {
-
-
+    
 }
 
 int main()
 {
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+
     FAST_IO;
     XuLy();
     return 0;
