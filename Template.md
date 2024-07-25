@@ -2,10 +2,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
-typedef double db;
+using ULL = unsigned long long;
+using LL = long long;
+using LD = long double;
+using DB = double;
 
 #define FAST_IO ios_base::sync_with_stdio(0),cin.tie(0)
 #define sz(a) ((int)(a).size())
@@ -42,6 +42,16 @@ typedef double db;
 #define BITMASK_CHECK_ALL(x, mask) (!(~(x) & (mask)))
 #define BITMASK_CHECK_ANY(x, mask) ((x) & (mask))
 
+ULL random64()
+{
+    ULL n  = 0;
+    int l = rand() % (RAND_MAX - 2) + 2;
+    int r = rand() % (RAND_MAX) + rand() % 2;
+    n = n | (ULL)r;
+    n = n << 32;
+    n = n | (ULL)l;
+    return n;
+}
 
 template<typename T>
 inline T gcd(T a, T b)
@@ -85,59 +95,59 @@ inline Cbrt(T k)
 }
 
 template<typename T>
-inline T AddMod(T a, T b, T c = 1000000007)
+inline T Add_mod(T a, T b, T c = 1000000007) // a+b % M
 {
     return ((a % c) + (b % c)) % c;
 }
 
 template<typename T>
-inline T SubMod(T a, T b, T c = 1000000007)
+inline T Sub_mod(T a, T b, T c = 1000000007) // a-b % M
 {
     return ((a % c) - (b % c)) % c;
 }
 
 template<typename T>
-inline T MulMod(T a, T b, T c = 1000000007) // a * b % M
+inline T Mul_mod(T a, T b, T c = 1000000007) // a*b % M
 {
     if (b == 0)
         return 0;
 
-    T t = MulMod(a, b / 2, c) % c;
+    T t = Mul_mod(a, b / 2, c) % c;
 
     if (b & 1)
-        return (AddMod(t, t, c) + a % c) % c;
+        return ((t + t) % c + a % c) % c;
     else
-        return AddMod(t, t, c);
+        return (t + t) % c;
 }
 
 template<typename T>
-inline T PowMod(T a, T b, T c = 1000000007)
+inline T Pow_mod(T a, T b, T c = 1000000007) // // a^b % M
 {
     if(b == 0)
         return 1LL;
 
-    T half = PowMod(a, b / 2, c) % c;
-    half = MulMod(half, half, c);
+    T half = Pow_mod(a, b / 2, c) % c;
+    half = Mul_mod(half, half, c);
 
-    if(b & 1) return MulMod(half, a, c);
+    if(b & 1) return Mul_mod(half, a, c);
     else return half;
 }
 
 template<typename T>
-inline T InverseMod(T a, T c = 1000000007)
+inline T Inverse_mod(T a, T c = 1000000007)
 {
-    return PowMod(a, c - 2, c);
+    return Pow_mod(a, c - 2, c);
 }
 
 template<typename T>
-inline T DivMod(T a, T b, T c = 1000000007)
+inline T Div_mod(T a, T b, T c = 1000000007)
 {
     T inverse = InverseMod(b, c);
     return (a % c * inverse) % c;
 }
 
 template<typename T>
-inline T extended_euclid(T a, T b, T &x, T &y)
+inline T Extended_euclid(T a, T b, T &x, T &y)
 {
     T xx = 0, yy = 1;
     y = 0;
@@ -159,7 +169,7 @@ inline T extended_euclid(T a, T b, T &x, T &y)
 }
 
 template<typename T>
-inline T PointDistanceHorVer(T x1, T y1, T x2, T y2)
+inline T Point_distance_HorVer(T x1, T y1, T x2, T y2)
 {
     return abs(x1 - x2) + abs(y1 - y2);
 }
@@ -249,11 +259,9 @@ int main()
 {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
 #endif
 
     FAST_IO;
     XuLy();
     return 0;
 }
-```
